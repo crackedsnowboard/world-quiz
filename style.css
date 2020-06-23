@@ -5,3 +5,7 @@
 .header {
 display: inline-block;
 }
+
+.timer  {
+    text-align: end;
+}
