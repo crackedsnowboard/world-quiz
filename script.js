@@ -8,11 +8,7 @@ var mainPage = document.querySelector("#main");
 var choicesSection = document.querySelector("#choices");
 var questionsDiv = document.querySelector("#questions")
 var endPresentation = document.querySelector("#theEnd")
-// var askQuestion = document.createElement("h1");
-// var firstAnswer = document.createElement("button");
-// var secondAnswer = document.createElement("button");
-// var thirdAnswer = document.createElement("button");
-// var fourthAnswer = document.createElement("button");
+
 console.log(timeElement);
 console.log(startButton);
 console.log(main);
@@ -29,24 +25,24 @@ var gameQuestions = [
     jackpot: "330 million",
   },
 
-{
+  {
     question: "The population of China is:",
     answers: ["100 million", "400 million", "1.4 billion", "1.9 billion"],
     jackpot: "1.4 billion",
   },
 
-{
+  {
     question: "Which country is expected to have the larget population by 2050?",
     answers: ["Unites States", "China", "Nigeria", "India"],
     jackpot: "India",
   },
-{
+  {
     question: "Which river is the longest in the world?",
     answers: ["Mississippi", "Nile", "Amazon", "Ganges"],
     jackpot: "Nile",
   },
 
-{
+  {
     question: "Chillis are native to which continent?",
     answers: ["Americas", "Africa", "Asia", "Europe"],
     jackpot: "Americas",
@@ -54,25 +50,6 @@ var gameQuestions = [
 ]
 
 console.log(gameQuestions.length);
-
-// questions: ["The population of the United States is:", "The population of China is:", "Which country is expected to have the larget population by 2050?", "Which river is the longest in the world?", "Chillis are native to which continent?"],
-//   answerRowOne: ["50 million", "100 million", "Unites States", "Mississippi", "North America"],
-//     answerRowTwo: ["270 million", "400 million", "China", "Nile", "Africa"],
-//       answerRowThree: ["330 million", "1.4  billion", "Nigeria", "Amazon", "Asia"],
-//         answerRowFour: ["400 million", "1.9 billion", "India", "Ganges", "Europe"], 
-// }
-
-
-// ["The population of the United States is:", "The population of China is:",  "Which country is expected to have the larget population by 2050?", "Which river is the longest in the world?", "Chillis are native to which continent?",];
-
-
-
-
-//   { q: "The population of China is:", a1: "100 million", a2: "400 million", a3: "1.4  billion", a4: "1.9 billion" },
-//   { q: "Which country is expected to have the larget population by 2050?", a1: "Unites States", a2: "China", a3: "Nigeria", a4: "India" },
-//   { q: "Which river is the longest in the world?", a1: "Mississippi", a2: "Nile", a3: "Amazon", a4: "Ganges" },
-//   { q: "Chillis are native to which continent?", a1: "North America", a2: "Africa", a3: "Asia", a4: "Europe" }
-// ];
 
 
 function playGame() {
@@ -106,11 +83,22 @@ function askQuestion() {
   var currentQuestion = gameQuestions[questionNumber].question;
   questionsDiv.textContent = currentQuestion
 
-  var choiceButton = document.createElement("button");
-  console.log(choiceButton)
-  choicesSection.setAttribute("class", "showcase")
-  choicesSection.appendChild(choiceButton);
-  choicesSection.textContent = gameQuestions[questionNumber].answers
+  for (var i = 0; i < (gameQuestions.length - 1); i++) {
+    var buttonCreation = document.createElement("button");
+    console.log(buttonCreation)
+    buttonCreation.innerHTML = gameQuestions[questionNumber].answers[i]
+    choicesSection.appendChild(buttonCreation);
+    
+    // choicesSection.setAttribute("class", "showcase")
+    // choicesSection.setAttribute("class", "center")
+    // choicesSection.setAttribute("class", "button-display")
+    // choicesSection.innerHTML = gameQuestions[questionNumber].answers[i]
+    // choicesSection.appendChild(choicesButton);
+
+  }
+
+
+
   checkAnswer();
 }
 
@@ -120,49 +108,50 @@ function askQuestion() {
 
 
 
-  // mainPage.appendChild(questions);
-  // mainPage.appendChild(firstAnswer);
-  // mainPage.appendChild(secondAnswer);
-  // mainPage.appendChild(thirdAnswer);
-  // mainPage.appendChild(fourthAnswer);
+// mainPage.appendChild(questions);
+// mainPage.appendChild(firstAnswer);
+// mainPage.appendChild(secondAnswer);
+// mainPage.appendChild(thirdAnswer);
+// mainPage.appendChild(fourthAnswer);
 
-  // firstAnswer.setAttribute("style", "margin:auto; width:25%; height:200; text-align:center;");
+// firstAnswer.setAttribute("style", "margin:auto; width:25%; height:200; text-align:center;");
 
-  // for (var i = 0; i < gameQuestions.length; i++) {
-  //   askQuestion.textContext = "test one two three"
-  //   firstAnswer.textContext = gameQuestions.answerRowOne[i];
-  //   secondAnswer.textContext = gameQuestions.answerRowTwo[i];
-  //   thirdAnswer.textContext = gameQuestions.answerRowThree[i];
-  //   fourthAnswer.textContext = gameQuestions.answerRowFour[i];
-  // }
-  // stringof[gameConstruct.questions[i]];
-
-
+// for (var i = 0; i < gameQuestions.length; i++) {
+//   askQuestion.textContext = "test one two three"
+//   firstAnswer.textContext = gameQuestions.answerRowOne[i];
+//   secondAnswer.textContext = gameQuestions.answerRowTwo[i];
+//   thirdAnswer.textContext = gameQuestions.answerRowThree[i];
+//   fourthAnswer.textContext = gameQuestions.answerRowFour[i];
+// }
+// stringof[gameConstruct.questions[i]];
 
 
 
-  // var answer = confirm(gameConstruct[questionNumber].q);
 
-  // checkAnswer(answer);
+
+// var answer = confirm(gameConstruct[questionNumber].q);
+
+// checkAnswer(answer);
 // }
 
-function checkAnswer() {
-  choicesSection.addEventListener("click", function(event) {
+function checkAnswer(answerChoice) {
+  choicesSection.addEventListener("click", function (event) {
     event.preventDefault();
     console.log("I was clicked")
-    if(event.target.matches === gameQuestions[questionNumber].jackpot) {
+    answerChoice = this.innerHTML
+    if (answerChoice === gameQuestions[questionNumber].jackpot) {
       highScore++
-      console.log(event.target.matches);
+      console.log(answerChoice);
     }
-     else {
-      secondsLeft++;
+    else {
+      // secondsLeft++;
       questionNumber++;
       askQuestion();
-     }
-      // var item = document.createElement("div");
-      // item.textContent = groceries[event.target.parentElement.id];
-      // shoppingCartEl.append(item);
-    
+    }
+    // var item = document.createElement("div");
+    // item.textContent = groceries[event.target.parentElement.id];
+    // shoppingCartEl.append(item);
+
   });
 }
 
