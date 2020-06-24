@@ -16,7 +16,7 @@ console.log(questionsDiv);
 console.log(choicesSection);
 console.log(endPresentation);
 
-
+userAnswerChoices = [];
 
 var gameQuestions = [
   {
@@ -47,6 +47,11 @@ var gameQuestions = [
     answers: ["Americas", "Africa", "Asia", "Europe"],
     jackpot: "Americas",
   },
+{
+    queston: "How many humans currently live on earth?",
+    answers: ["200 million", "20 billion", "6 trillion", "7 billion"],
+    jackpot: "7 billion",
+},
 ]
 
 console.log(gameQuestions.length);
@@ -76,14 +81,14 @@ function setTime() {
 
 // dynamic display based on each question
 function askQuestion() {
-  setTime()
+  setTime();
   mainPage.setAttribute("style", "display: none");
   choicesSection.innerHTML = "";
 
   var currentQuestion = gameQuestions[questionNumber].question;
   questionsDiv.textContent = currentQuestion
 
-  for (var i = 0; i < (gameQuestions.length - 1); i++) {
+  for (var i = 0; i < (gameQuestions.length - 2); i++) {
     var buttonCreation = document.createElement("button");
     console.log(buttonCreation)
     buttonCreation.innerHTML = gameQuestions[questionNumber].answers[i]
@@ -102,52 +107,27 @@ function askQuestion() {
   checkAnswer();
 }
 
-
-
-
-
-
-
-// mainPage.appendChild(questions);
-// mainPage.appendChild(firstAnswer);
-// mainPage.appendChild(secondAnswer);
-// mainPage.appendChild(thirdAnswer);
-// mainPage.appendChild(fourthAnswer);
-
-// firstAnswer.setAttribute("style", "margin:auto; width:25%; height:200; text-align:center;");
-
-// for (var i = 0; i < gameQuestions.length; i++) {
-//   askQuestion.textContext = "test one two three"
-//   firstAnswer.textContext = gameQuestions.answerRowOne[i];
-//   secondAnswer.textContext = gameQuestions.answerRowTwo[i];
-//   thirdAnswer.textContext = gameQuestions.answerRowThree[i];
-//   fourthAnswer.textContext = gameQuestions.answerRowFour[i];
-// }
-// stringof[gameConstruct.questions[i]];
-
-
-
-
-
-// var answer = confirm(gameConstruct[questionNumber].q);
-
-// checkAnswer(answer);
-// }
-
 function checkAnswer(answerChoice) {
   choicesSection.addEventListener("click", function (event) {
-    event.preventDefault();
+    event.stopPropagation();
     console.log("I was clicked")
-    answerChoice = this.innerHTML
-    if (answerChoice === gameQuestions[questionNumber].jackpot) {
+    
+    
+    if (event.target.matches("button")) {
+      event.preventDefault()
+      var resultCorrect = document.createElement("h5");
+      resultCorrect.textContent = gameQuestions[(questionNumber-1)].jackpot;
+      choicesSection.appendChild(resultCorrect);
       highScore++
-      console.log(answerChoice);
-    }
+      askQuestion();
+    } 
+      
     else {
       // secondsLeft++;
-      questionNumber++;
+      
       askQuestion();
     }
+    questionNumber++;
     // var item = document.createElement("div");
     // item.textContent = groceries[event.target.parentElement.id];
     // shoppingCartEl.append(item);
