@@ -7,5 +7,12 @@ display: inline-block;
 }
 
 .timer  {
-    text-align: end;
+position: absolute;
+right: 0px;
+width: 300px;
+}
+
+.highScores {
+display: inline-block
+
 }
