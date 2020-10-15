@@ -36,6 +36,7 @@ var gameQuestions = [
     answers: ["Unites States", "China", "Nigeria", "India"],
     jackpot: "India",
   },
+
   {
     question: "Which river is the longest in the world?",
     answers: ["Mississippi", "Nile", "Amazon", "Ganges"],
@@ -47,15 +48,12 @@ var gameQuestions = [
     answers: ["Americas", "Africa", "Asia", "Europe"],
     jackpot: "Americas",
   },
-{
+  {
     queston: "How many humans currently live on earth?",
     answers: ["200 million", "20 billion", "6 trillion", "7 billion"],
     jackpot: "7 billion",
-},
+  },
 ]
-
-console.log(gameQuestions.length);
-
 
 function playGame() {
 
@@ -93,44 +91,35 @@ function askQuestion() {
     console.log(buttonCreation)
     buttonCreation.innerHTML = gameQuestions[questionNumber].answers[i]
     choicesSection.appendChild(buttonCreation);
-    
-    // choicesSection.setAttribute("class", "showcase")
-    // choicesSection.setAttribute("class", "center")
-    // choicesSection.setAttribute("class", "button-display")
-    // choicesSection.innerHTML = gameQuestions[questionNumber].answers[i]
-    // choicesSection.appendChild(choicesButton);
 
   }
-
-
-
   checkAnswer();
+  questionNumber++
 }
+
 
 function checkAnswer(answerChoice) {
   choicesSection.addEventListener("click", function (event) {
     event.stopPropagation();
     console.log("I was clicked")
+    console.log(event.target.innerHTML)
     
     
-    if (event.target.matches("button")) {
-      event.preventDefault()
+    console.log(gameQuestions[questionNumber].jackpot)
+
+    if (event.target.innerHTML === gameQuestions[questionNumber-1].jackpot) {
+      
       var resultCorrect = document.createElement("h5");
-      resultCorrect.textContent = gameQuestions[(questionNumber-1)].jackpot;
+      resultCorrect.textContent = gameQuestions[questionNumber-1].jackpot;
       choicesSection.appendChild(resultCorrect);
       highScore++
       askQuestion();
-    } 
-      
+    }
+
     else {
-      // secondsLeft++;
-      
+      secondsLeft++;
       askQuestion();
     }
-    questionNumber++;
-    // var item = document.createElement("div");
-    // item.textContent = groceries[event.target.parentElement.id];
-    // shoppingCartEl.append(item);
 
   });
 }
